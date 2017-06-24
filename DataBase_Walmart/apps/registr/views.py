@@ -73,3 +73,4 @@ class Settings(View):
             select_api.save()
 
         return HttpResponseRedirect('/')
+    # hh
