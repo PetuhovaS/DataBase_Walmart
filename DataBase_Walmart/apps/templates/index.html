@@ -1,0 +1,152 @@
+{% extends 'adminlte/base.html' %}
+{% load staticfiles %}
+
+{% block title %}My App{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="inline">
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#contact_dialog">Contact</button>
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#contact_dialog_del">Delete</button>
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#contact_CSV">CSV-file</button>
+    <a href="{% url 'settings_user' %}">SETTINGS</a>
+</div>
+
+{#        --- MODAL WINDOW for CONTACT ---       #}
+<div class="modal fade" id="contact_dialog" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Enter UPC</h4>
+            </div>
+            <div class="modal-body">
+                  <form id="contact_form" action="{% url 'onlinejson' %}" method="POST"> {% csrf_token %}
+                    UPC: <input type="text" name="upc"><br/>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="button_close_upc" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" id="submitForm" class="btn btn-default">Upload</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    {#        --- MODAL WINDOW for DELETE ---       #}
+
+
+<div class="modal fade" id="contact_dialog_del" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Enter ID </h4>
+            </div>
+            <div class="modal-body">
+                  <form id="contact_form_del" action="{% url 'delete_items' %}" method="POST"> {% csrf_token %}
+                    ID: <input type="text" name="id"><br/>
+
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button id="button_delete_close" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" id="submitForm_del" class="btn btn-default">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{#        --- MODAL WINDOW for IMPORT ---       #}
+ <div class="modal fade" id="contact_CSV" role="dialog">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+            <div class="modal-body">
+                 <h4>Choose your CSV-file ...</h4>
+
+            </div>
+                <div class="modal-body">
+
+                    <form id="form_for_import" method="POST" action="{% url 'data_import'%}" enctype="multipart/form-data"> {% csrf_token %}
+
+                        <input type="file" name="data_input_file" id="input_file">
+                        <input type="submit" id="submitForm_CSV" class="btn btn-default"/>
+                    </form>
+                </div>
+
+            <div class="modal-footer">
+                <button type="button" id="button_CSV" class="btn btn-default" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+ </div>
+
+<div class="inline">
+    <form id="ExportToCSV" action="{% url 'csv_list' %}" method="GET">
+        <button type="submit" class="btn btn-info" id="submitCSV" class="btn btn-default">Save CSV</button>
+    </form>
+</div>
+
+
+
+
+<table id="mytable" class="display" width="100%" cellspacing="0">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>upc</th>
+            <th>image</th>
+            <th>name</th>
+            <th>brand</th>
+            <th>model</th>
+            <th>qty</th>
+            <th>in_stock</th>
+            <th>price</th>
+            <th>free_shipping</th>
+            <th>date</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>ID</th>
+            <th>upc</th>
+            <th>image</th>
+            <th>name</th>
+            <th>brand</th>
+            <th>model</th>
+            <th>qty</th>
+            <th>in_stock</th>
+            <th>price</th>
+            <th>free_shipping</th>
+            <th>date</th>
+        </tr>
+    </tfoot>
+</table>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+{#<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>#}
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="{% static "contact.js" %}"></script>
+<script type="text/javascript" src="{% static "recall_me.js" %}"></script>
+<script type="text/javascript" src="{% static "delete.js" %}"></script>
+<script type="text/javascript" src="{% static "import_csv.js" %}"></script>
+{% endblock %}
+
+{% block extra_foot %}
+
+{#<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>#}
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+
+{% endblock %}

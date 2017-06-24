@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Login</title>
+    {% include 'adminlte/lib/_styles.html' %}
+</head>
+<body class="hold-transition login-page">
+    <div class="login-box">
+       <form method="POST">
+           {% csrf_token %}
+           <p>
+               <label>Username</label>
+               <input type="text" name="username">
+           </p>
+           <p>
+               <label>Password</label>
+               <input type="password" name="password">
+           </p>
+           <button type="submit">Login</button>
+           <p><a href={% url 'register' %}>Signup</a></p>
+       </form>
+    </div>
+</body>
+</html>
