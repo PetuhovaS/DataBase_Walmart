@@ -16,7 +16,7 @@ def index(request):
 class Register(View):
     form_class = UserRegistrationForm
     initial = {'key': 'value'}
-    template_name = 'register.html'
+    template_name = 'registration/register.html'
 
     def get(self, request, *args, **kwargs):
         form = self.form_class(initial=self.initial)
@@ -73,4 +73,4 @@ class Settings(View):
             select_api.save()
 
         return HttpResponseRedirect('/')
-    # hh
+

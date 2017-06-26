@@ -3,8 +3,10 @@
 <html>
 <head>
     <title>Home</title>
+     {% include 'adminlte/lib/_styles.html' %}
 </head>
 <body>
+    <div>
     <div>
         {% if user.is_authenticated %}
           {%  include 'index.html' %}
