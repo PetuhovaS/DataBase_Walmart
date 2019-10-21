@@ -11,7 +11,7 @@ command-not-found==0.3
 cryptography==1.5
 defer==1.0.6
 distro-info===0.14build1
-Django==1.11.1
+Django==1.11.23
 django-adminlte2==0.1.6
 django-datatable==0.3.1
 django-registration==2.2
